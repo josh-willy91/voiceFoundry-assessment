@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     country_code = phone_num[0] + phone_num[1]
     digits = str(phone_num[2: ])
 
-    def vanity(digits):
+    def vanity_1(digits):
         option_1 = ''
 
         if len(digits) != 10:
@@ -32,12 +32,11 @@ def lambda_handler(event, context):
                 option_1 += num_to_letter[ele][0]
         return option_1
 
+    check = vanity_1(digits)
 
-    # for let i = 0; i <
-
-    check = vanity(digits)
-
-    return f'check {check} phone num is {digits}, country code {country_code} and contact ID is {contact_id}'
+    print(f'option 1 for vanity {check} phone num is {digits}, country code {country_code} and contact ID is {contact_id}')
+    resultMap = {'option_one': check}
+    return resultMap
 
     # {
     #     "statusCode": 200,
