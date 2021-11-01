@@ -5,6 +5,14 @@
 # Voice Foundry Technical Assessment
 ## Date 11/01/2021 - Josh Williams
 
+### Link to Connect's contact flow
+https://voicefoundry-project.my.connect.aws/
+username: admin
+password: Password#1
+
+Bonus:
+Phone number for call center: 302-551-6388
+
 ## Notes and Reflections
     DEFINING VANITY RESULTS - After thinking over it, I decided that the best vanity number was one that was memorable.  The best 2 options I could think of were if the number had multiple numbers repeating, then convering those repeated number into the same letters.  If the number did not have any repeated numbers then I will try to match any 3 digit series to a 3 letter word.  After that the other 3 functions just return a random collection of letters.
 

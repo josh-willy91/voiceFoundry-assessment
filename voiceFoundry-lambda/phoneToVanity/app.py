@@ -2,9 +2,9 @@ import json
 # import requests
 
 # note that the below 3 lines should be commented out if trying to invoke an event in console for testing
-# import boto3
-# dynamodb = boto3.resource('dynamodb')
-# table = dynamodb.Table('voiceFoundry')
+import boto3
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('voiceFoundry')
 
 # Dict that has a list of letters for each number
 num_to_letter = {
@@ -40,7 +40,7 @@ def lambda_handler(event, context):
     option_5 = vanity_5(digits)
 
     # note that the below line should be commented out if trying to invoke an event in console for testing
-    # dynamodb_put(digits, contact_id, option_1, option_2, option_3, option_4, option_5)
+    dynamodb_put(digits, contact_id, option_1, option_2, option_3, option_4, option_5)
 
     resultMap = {'option_one': option_1, 'option_two': option_2, 'option_three': option_3, 'option_four': option_4 ,'option_five': option_5}
     return resultMap
@@ -48,18 +48,18 @@ def lambda_handler(event, context):
 
 # function that adds an item in dynamoDB
 # Note that this should be commented out if trying to invoke an event for testing in console
-# def dynamodb_put(digits, contact_id, option_1, option_2, option_3, option_4, option_5):
-#     table.put_item(
-#         Item = {
-#             "id": contact_id,
-#             "phoneNumber": digits,
-#             "vanityOption1": option_1,
-#             "vanityOption2": option_2,
-#             "vanityOption3": option_3,
-#             "vanityOption4": option_4,
-#             "vanityOption5": option_5
-#         }
-#     )
+def dynamodb_put(digits, contact_id, option_1, option_2, option_3, option_4, option_5):
+    table.put_item(
+        Item = {
+            "id": contact_id,
+            "phoneNumber": digits,
+            "vanityOption1": option_1,
+            "vanityOption2": option_2,
+            "vanityOption3": option_3,
+            "vanityOption4": option_4,
+            "vanityOption5": option_5
+        }
+    )
 
 
 # Function that takes in a phone number and returns the option_1 vanity number for the contact flow
