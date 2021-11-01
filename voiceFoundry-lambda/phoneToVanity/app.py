@@ -1,5 +1,4 @@
 import json
-from os import WCOREDUMP
 # import requests
 
 # note that the below 3 lines should be commented out if trying to invoke an event in console for testing
@@ -21,6 +20,7 @@ num_to_letter = {
     '9': ['W', 'X', 'Y', 'Z'],
 }
 
+# array of common three letter words
 threeLetterWords = ["the","and","for","are","but","not","you","all","any","can","had","her","was","one","our","out","day","get","has","him","his","how","man","new","now","old","see","two","way","who","boy","did","its","let","put","say","she","too","use"]
 
 
@@ -29,7 +29,7 @@ def lambda_handler(event, context):
     # Extract data from the event (the event occurs when the incoming call invokes the lambda func in the contact flow)
     phone_num = event['Details']['ContactData']['CustomerEndpoint']['Address']
     contact_id = event['Details']['ContactData']['ContactId']
-    # country_code = phone_num[0] + phone_num[1]
+
     # This variable formats the phone number so the country code is removed and turns the int into string (return value must be a string)
     digits = str(phone_num[2: ])
 
@@ -42,7 +42,6 @@ def lambda_handler(event, context):
     # note that the below line should be commented out if trying to invoke an event in console for testing
     # dynamodb_put(digits, contact_id, option_1, option_2, option_3, option_4, option_5)
 
-    # print(f'option 1 for vanity {option_1} phone num is {digits}, country code {country_code} and contact ID is {contact_id}')
     resultMap = {'option_one': option_1, 'option_two': option_2, 'option_three': option_3, 'option_four': option_4 ,'option_five': option_5}
     return resultMap
 
@@ -62,19 +61,20 @@ def lambda_handler(event, context):
 #         }
 #     )
 
+
 # Function that takes in a phone number and returns the option_1 vanity number for the contact flow
 # This option is completely random and has a low chance of coming up with a good vanity number
 def vanity_1(phone_num):
     option_1 = ''
 
-    if len(phone_num) != 10:
-        return 'false'
-    else:
-        for num in phone_num:
-            option_1 += num_to_letter[num][0]
+    for num in phone_num:
+        option_1 += num_to_letter[num][0]
+
     return option_1
 
 
+# Function that takes a phone number and tries to find a possible combo of 3 digits that matches one of the 3 letter words in the array
+# I thought this would be the best option but I wasn't able to reduce the time complexity enough to make it viable.  Lambda's time out after 3 secs
 def vanity_2(phone_num):
     option_2 = '1888 hire me'
 
@@ -88,7 +88,9 @@ def vanity_2(phone_num):
     # j = 1
     # k = 2
 
+    # helper func to find any potential words that are matching a set of 3 digits
     # def match_ltrs(array_of_digits, words_array, index):
+    #     matching_words = []
     #     for word in words_array:
     #         first_ltr = word[index]
     #         ltr_array = num_to_letter[array_of_digits[index]]
@@ -101,28 +103,27 @@ def vanity_2(phone_num):
     # match_ltrs(first_three, matching_words, k)
     # print(matching_words, '==========matching words======================')
 
-
     return option_2
 
+
+# Function that takes in a phone number and returns the option_3 vanity number for the contact flow
+# This option is completely random and has a low chance of coming up with a good vanity number
 def vanity_3(phone_num):
     option_3 = ''
 
-    if len(phone_num) != 10:
-        return 'false'
-    else:
-        for ele in phone_num:
-            option_3 += num_to_letter[ele][1]
+    for ele in phone_num:
+        option_3 += num_to_letter[ele][1]
 
     return option_3
 
+
+# Function that takes in a phone number and returns the option_4 vanity number for the contact flow
+# This option is completely random and has a low chance of coming up with a good vanity number
 def vanity_4(phone_num):
     option_4 = ''
 
-    if len(phone_num) != 10:
-        return 'false'
-    else:
-        for ele in phone_num:
-            option_4 += num_to_letter[ele][2]
+    for ele in phone_num:
+        option_4 += num_to_letter[ele][2]
 
     return option_4
 
